@@ -1,8 +1,9 @@
 from tkinter import *
 from tkinter import ttk
 import math
-
 from PIL import ImageTk, Image
+
+
 
 sr=1
 wt=0
@@ -10,6 +11,7 @@ ang=15
 pan=0
 muv=0.5
 sum='NAN'
+
 
 class HoverButton(Button):
     def __init__(self, master, **kw):
@@ -28,6 +30,7 @@ class HoverButton(Button):
         self['foreground'] = self.defaultForeground
 
 
+
 def viewtablef():
     global sr
     sr=1
@@ -36,10 +39,6 @@ def viewtablef():
     ws.geometry('600x210')
     ws['bg'] = 'white'
 
-    # tableframe = Frame(ws)
-    # tableframe.pack()
-
-    # scrollbar
     scorll = Scrollbar(ws)
     scorll.pack(side=RIGHT, fill=X)
 
@@ -51,11 +50,9 @@ def viewtablef():
     scorll.config(command=table.yview)
     scorll.config(command=table.xview)
 
-    # define our column
 
     table['columns'] = ('SR.NO', 'SURFACE OF SLIDER', 'WEIGHT OF PAN', 'WEIGHT OF BLOCK', 'COEFFICIENT OF FRICTION')
 
-    # format our column
     table.column("#0", width=0, stretch=NO)
     table.column("SR.NO", anchor=CENTER, width=40)
     table.column("SURFACE OF SLIDER", anchor=CENTER, width=120)
@@ -63,18 +60,15 @@ def viewtablef():
     table.column("WEIGHT OF BLOCK", anchor=CENTER, width=120)
     table.column("COEFFICIENT OF FRICTION", anchor=CENTER, width=160)
 
-    # Create Headings
     table.heading("#0", text="", anchor=CENTER)
     table.heading("SR.NO", text="SR.NO", anchor=CENTER)
     table.heading("SURFACE OF SLIDER", text="SURFACE OF SLIDER", anchor=CENTER)
     table.heading("WEIGHT OF PAN", text="WEIGHT OF PAN", anchor=CENTER)
     table.heading("WEIGHT OF BLOCK", text="WEIGHT OF BLOCK", anchor=CENTER)
     table.heading("COEFFICIENT OF FRICTION", text="COEFFICIENT OF FRICTION", anchor=CENTER)
-    # add data
+
     table.pack()
     ws.mainloop()
-
-
 
 def addtotablef():
     global sr
@@ -129,7 +123,7 @@ def murubber():
 
 def mualu():
     global muv
-    muv=1.4
+    muv=0.45
     angrad=ang*math.pi/180
     mattype = Label(friction, text='Aluminium ', background='white', font=('Helvatical bold', 25))
     mattype.place(x=200, y=650)
@@ -166,6 +160,7 @@ def mualu():
         elif (ang == 75):
             img2 = Image.open("Friction_75deg_long.png")
             img.paste(img2, (0, 0))
+
 def resetu():
     global ang
     ang=15
@@ -424,6 +419,7 @@ def panplus25():
         elif (ang == 75):
             img2 = Image.open("Friction_75deg_long.png")
             img.paste(img2, (0, 0))
+
 def panplus5():
     global pan
     pan+=5
@@ -463,6 +459,7 @@ def panplus5():
         elif (ang == 75):
             img2 = Image.open("Friction_75deg_long.png")
             img.paste(img2, (0, 0))
+
 def panplus1():
     global pan
     pan+=1
@@ -548,6 +545,7 @@ def panminus100():
         pan=0
         panlbl = Label(friction, text=str(pan)+"   ", font=30,bg='white')
         panlbl.place(x=160, y=245)
+
 def panminus25():
     global pan
     global ang
@@ -592,6 +590,7 @@ def panminus25():
         pan=0
         panlbl = Label(friction, text=str(pan)+"   ", font=30,bg='white')
         panlbl.place(x=160, y=245)
+
 def panminus5():
     global pan
     global ang
@@ -636,6 +635,7 @@ def panminus5():
         pan=0
         panlbl = Label(friction, text=str(pan)+"   ", font=30,bg='white')
         panlbl.place(x=160, y=245)
+
 def panminus1():
     global pan
     global ang
@@ -682,17 +682,20 @@ def panminus1():
         panlbl.place(x=160, y=245)
 
 
+
 friction = Tk()
 friction.geometry("1080x720")
 friction.title("FRICTION")
+
+
 canva = Canvas(friction, width=1080, height=720)
 img = ImageTk.PhotoImage(Image.open("Friction_15deg_long.png"))
 canva.create_image(10, 10, anchor=NW, image=img)
 inanglabel = Label(friction,text='15 ',font=30,bg='white')
 inwtlabel = Label(friction,text=str(wt)+"   ",font=30,bg='white')
 inpanlabel = Label(friction,text=str(pan)+"   ",font=30,bg='white')
-wtlabl = Label(friction,text='WEIGHT OF BLOCK',font=('Helvatical bold',25),foreground='blue',background='white')
-panlabl = Label(friction,text='WEIGHT OF PAN',font=('Helvatical bold',25),fg='blue',bg='white')
+wtlabl = Label(friction,text='WEIGHT OF BLOCK (in grams)',font=('Helvatical bold',25),foreground='blue',background='white')
+panlabl = Label(friction,text='WEIGHT OF PAN (in grams)',font=('Helvatical bold',25),fg='blue',bg='white')
 anglabl = Label(friction,text='ANGLE OF INCLINATION',font=('Helvatical bold',25),fg='blue',bg='white')
 pluspn100 = HoverButton(friction , text = '+100', command = panplus100,background='white',padx=2,pady=2, activeforeground='blue',highlightthickness=0,borderwidth=0)
 minpn100 = HoverButton(friction , text = '-100',padx=2,pady=2 ,command = panminus100,background='white',activeforeground='blue',borderwidth=0)
@@ -715,12 +718,15 @@ aluminium = HoverButton(friction,text='ALUMINIUM',command=mualu,padx=2,pady=2,bo
 material = Label(friction,text='MATERIAL : ',background='white',font=('Helvatical bold',25),fg='blue',activeforeground='blue')
 viewtable = HoverButton(friction,text='View Table',command=viewtablef,padx=2,pady=2,borderwidth=0,background='white',activeforeground='blue')
 addtotable = HoverButton(friction,text='Add To Table',command=addtotablef,padx=2,pady=2,borderwidth=0,background='white',activeforeground='blue')
+
 if(muv == 0.5):
     type = 'Rubber'
 else:
     type = 'Aluminium'
+
 mattype = Label(friction,text=type,background='white',font=('Helvatical bold',25))
 selectmaterial = Label(friction,text="SELECT MATERIAL",font=('Helvatical bold',25),bg='white',fg='blue')
+
 
 canva.place(x=0,y=0)
 quiit.place(x=122,y=500)
